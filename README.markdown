@@ -4,6 +4,12 @@ UGLA-Slider
 Supposed to become a jQuery-Plugin some day
 -------------------------------------------
 
+**DEMO**<br>
+<a href="http://ugla-media.vs188017.vserver.de/projekte/">DEMO 1</a><br>
+<a href="http://povmedia.de">DEMO 2</a>
+
+
+
 Usage:
 You need a wrapper called "projects" and put your contents each in a "container"
 <code>
