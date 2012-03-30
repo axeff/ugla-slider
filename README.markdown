@@ -16,11 +16,12 @@ _[...] it slides back to the beginning, after reach of the end [...]_
 
 
 Usage:
-You need a wrapper (in this example called "#projects") and put your contents each in a "container" in that wrapper<br>
+You need a wrapper (in this example called ".slider") and put your contents each in a "container" within that wrapper
+
 <code>
 	
 
-	<div id="projects">
+	<div class="slider">
 		<div class="container">
 		   Content Page 1
 		</div>
@@ -35,21 +36,29 @@ You need a wrapper (in this example called "#projects") and put your contents ea
 		</div>
 	</div>
 
-	<div id="slider" style="left:0;"><a class="left" href="#">left</a><a class="right" href="#">right</a></div>
 
 </code>
-Call uglaSlide() on the wrapper "#projects" and pass the configuration object
+
+Call uglaSlide() on the wrapper ".slider" 
 
 <code>
 	
 	$(document).ready(function(){
-		$("#projects").uglaSlide({
-			'left': $("#slider .left"), //the jQuery Object of the left-link to be clicked
-			'right': $("#slider .right"), //the jQuery Object of the right-link to be clicked
-			'menu': $('#projectssubmenu li a') //not implmented yet... for navigation menu
-		});
+		$(".slider").uglaSlide();
 	});
 	
+</code>
+
+It will by default **prepend** a "&lt;&lt;" and "&gt;&gt;" link-set.
+If you want to place your own links, feel free to do so, just tell the plugin where to find them .
+
+<code>
+
+	$(".slider").uglaSlide({
+		left: $("a#slideLeft"),
+		right: $("a#slideRight"),
+	});
+
 </code>
 
 Contents:<br>
