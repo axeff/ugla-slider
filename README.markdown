@@ -1,7 +1,7 @@
 UGLA-Slider
 ===========
 
-_[...] it slides back to the beginning, after reach of the end [...]_
+_[...] it slides back to the beginning, after reaching the end [...]_
 
 
 **Tested on**<br>
