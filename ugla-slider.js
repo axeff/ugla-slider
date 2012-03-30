@@ -5,9 +5,9 @@
   	var $self = $(this);
 	$self.css({
 		'-webkit-transition': 'all 0.5s ease-in-out',
-	    '-moz-transition': 'all 0.5s ease-in-out',
-	    '-o-transition': 'all 0.5s ease-in-out',
-	    '-ms-transition': 'all 0.5s ease-in-out'
+		'-moz-transition': 'all 0.5s ease-in-out',
+		'-o-transition': 'all 0.5s ease-in-out',
+		'-ms-transition': 'all 0.5s ease-in-out'
 	});
 
     // Do your awesome plugin stuff here
@@ -16,7 +16,7 @@
 	$(this).css({'position':'absolute'});
 
 	//and hide all but the first by overlapping an absolute positioned "mask" width the size of one .container
-	$(this).css('width',eval($self.find('.container').length * $self.find('.container').width())+'px');
+	$(this).css('width',eval($self.find('.container').length * $self.find('.container').outerWidth())+'px');
 	
 	$(this).parent().append($("<div id='mask'></div>").css({
 		'background-color': $self.parent().css('background-color'),
@@ -29,8 +29,8 @@
 
 	//somehow the correct width and height is not available while appending the "mask" so we rescale it afterwards...
 	$('#mask').css({
-		'width' : $self.find('.container').width() + "px",
-		'height' : $self.find('.container').height() + "px",
+		'width' : $self.find('.container').outerWidth() + "px",
+		'height' : $self.find('.container').outerHeight() + "px",
 	});
 							
 	options.left.bind('click',function(){
@@ -51,9 +51,9 @@
 	
 	var moveright = function() {
 		var pos = $self.position().left;
-		pos = eval(pos - $self.find('.container').width());
+		pos = eval(pos - $self.find('.container').outerWidth());
 
-		if (pos < eval(0-eval(eval($self.find('.container').length - 1) * $self.find('.container').width()))){
+		if (pos < eval(0-eval(eval($self.find('.container').length - 1) * $self.find('.container').outerWidth()))){
 			pos = 0;
 			submenu = 1;
 		}else{
@@ -74,10 +74,10 @@
 
 	var moveleft = function(){
 		var pos = $self.position().left;
-		pos = eval(pos + $self.find('.container').width());
+		pos = eval(pos + $self.find('.container').outerWidth());
 
 		if (pos > 0) {
-			pos = eval(0-eval(eval($self.find('.container').length - 1) * $self.find('.container').width()));
+			pos = eval(0-eval(eval($self.find('.container').length - 1) * $self.find('.container').outerWidth()));
 			submenu = 4;
 		}else{
 			submenu -= 1;
@@ -102,7 +102,7 @@
 
 			var sel_index	=	eval($(handler).attr('class').substring(5) - 1);
 
-			var pos			=	eval(sel_index * $self.find('.container').width());
+			var pos			=	eval(sel_index * $self.find('.container').outerWidth());
 
 			submenu			=	eval(1 + sel_index);
 

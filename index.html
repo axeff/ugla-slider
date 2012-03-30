@@ -4,7 +4,7 @@
 	<script src="ugla-slider.js" type="text/javascript"></script>
 	<script>
 		$(document).ready(function(){
-			$("#projects").uglaSlide({
+			$("#wrapper").uglaSlide({
 				'left': $("#slider .left"),
 				'right': $("#slider .right"),
 				'menu': $('#projectssubmenu li a')
@@ -12,35 +12,61 @@
 		});
 	</script>
 	<style>
-		#slider {
-			top:  50px;
-			position: absolute;
+	
+		.container {
+			width: 250px;
+			height: 250px;
+			text-align: center;
+			text-shadow: #c0c0c0 3px 3px 5px;
+			padding: 10px;
+			color: #FFFFFF;
 		}
+
+		#wrapper{
+			
+			background-image: linear-gradient(left , rgb(4,179,109) 0%, rgb(0,46,56) 100%);
+			background-image: -o-linear-gradient(left , rgb(4,179,109) 0%, rgb(0,46,56) 100%);
+			background-image: -moz-linear-gradient(left , rgb(4,179,109) 0%, rgb(0,46,56) 100%);
+			background-image: -webkit-linear-gradient(left , rgb(4,179,109) 0%, rgb(0,46,56) 100%);
+			background-image: -ms-linear-gradient(left , rgb(4,179,109) 0%, rgb(0,46,56) 100%);
+
+			background-image: -webkit-gradient(
+				linear,
+				left top,
+				right top,
+				color-stop(0, rgb(4,179,109)),
+				color-stop(1, rgb(0,46,56))
+			);
+		}
+
+
 	</style>
 </head>
 <body>
 	<div>
-		<div>
-			<div id="projects">
-				<div class="container">
-				   Content Page 1
-				</div>
-				<div class="container">
-					Content Page 2
-				</div>
-				<div class="container">
-					Content Page 3
-				</div>
-				<div class="container">
-					Content Page 4
-				</div>
-				<div class="container">
-					Content Page 5
-				</div>
+		<div id="slider" style="left:0;"><a class="left" href="#">&lt;&lt;</a>&nbsp;<a class="right" href="#">&gt;&gt;</a></div>
+		<div id="wrapper">
+			<div class="container">
+			   	<h1>Content Page 1</h1>
+				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et</p>
 			</div>
-
+			<div class="container">
+			   	<h1>Content Page 2</h1>
+				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et</p>
+			</div>
+			<div class="container">
+			   	<h1>Content Page 3</h1>
+				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et</p>
+			</div>
+			<div class="container">
+			   	<h1>Content Page 4</h1>
+				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et</p>
+			</div>
+			<div class="container">
+			   	<h1>Content Page 5</h1>
+				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et</p>
+			</div>
 		</div>
-		<div id="slider" style="left:0;"><a class="left" href="#">&lt;&lt;</a><a class="right" href="#">&gt;&gt;</a></div>
 
 	</div>
 </body>

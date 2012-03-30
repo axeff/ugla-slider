@@ -1,6 +1,9 @@
 UGLA-Slider
 ===========
 
+_[...] it slides back to the beginning, after reach of the end [...]_
+
+
 **Tested on**<br>
 *	Chrome (Mac)<br>
 *	Firefox (Mac)<br>
