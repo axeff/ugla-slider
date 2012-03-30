@@ -1,7 +1,10 @@
 UGLA-Slider
 ===========
 
-using animate() but shall be animated using css-transforms
+**Tested on**
+*	Chrome (Mac)
+*	Firefox (Mac)
+*	Safari (Mac)
 
 **DEMO**<br>
 <a href="http://ugla-media.vs188017.vserver.de/projekte/">DEMO 1</a><br>
@@ -10,8 +13,8 @@ using animate() but shall be animated using css-transforms
 
 
 Usage:
-You need a wrapper called "projects" and put your contents each in a "container"
-<code>
+You need a wrapper (in this example called "#projects") and put your contents each in a "container" in that wrapper<br>
+
 	`<div>`<br>
 		`<div id="projects">`<br>
 			`<div class="container">`<br>
@@ -29,9 +32,9 @@ You need a wrapper called "projects" and put your contents each in a "container"
 		`</div>`<br>
 	`</div>`<br>
 	`<div id="slider" style="left:0;"><a class="left" href="#">left</a><a class="right" href="#">right</a></div>`<br>
-</code>
 
-Call uglaSlide() on the wrapper "projects" and pass the configuration object
+
+Call uglaSlide() on the wrapper "#projects" and pass the configuration object
 
 <code>
 	$(document).ready(function(){<br>
@@ -43,6 +46,6 @@ Call uglaSlide() on the wrapper "projects" and pass the configuration object
 	});<br>
 </code>
 
-Contents:
-*	ugla-slider.js
+Contents:<br>
+*	ugla-slider.js<br>
 *	index.html

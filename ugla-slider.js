@@ -1,19 +1,21 @@
 (function( $ ) {
+  var submenu = 1;
+
   $.fn.uglaSlide = function(options) {
-  
+  	var $self = $(this);
     // Do your awesome plugin stuff here
 	//First we do some CSS stuff to float the project containers
-	$("#projects > .container").css({'float':'left'});
+	$self.find('.container').css({'float':'left'});
 	$(this).css({'position':'absolute'});
 
 	//and hide all but the first by shrinking the focus
-	$(this).css('width',eval($('#projects > .container').length * $('#projects > .container').width())+'px');
+	$(this).css('width',eval($self.find('.container').length * $self.find('.container').width())+'px');
 	$(this).parent().append($("<div id='mask'></div>").css({
-		'background-color': $('#projects').parent().css('background-color'),
-		'width' : $('#projects > .container').width() + "px",
-		'height' : $('#projects > .container').height() + "px",
-		'top' : $('#projects').offset().top + 'px',
-		'left' : $('#projects').offset().left + 'px',
+		'background-color': $self.parent().css('background-color'),
+		'width' : $self.find('.container').width() + "px",
+		'height' : $self.find('.container').height() + "px",
+		'top' : $self.offset().top + 'px',
+		'left' : $self.offset().left + 'px',
 		'position' : 'absolute',
 		'z-index' : '100',
 		'overflow' : 'hidden'
@@ -35,68 +37,73 @@
 		clickmenu(this);
 		return false;
 	});
+	
+	var moveright = function() {
+		var pos = $self.position().left;
+		pos = eval(pos - $self.find('.container').width());
+
+		if (pos < eval(0-eval(eval($self.find('.container').length - 1) * $self.find('.container').width()))){
+			pos = 0;
+			submenu = 1;
+		}else{
+			submenu += 1;	
+		}
+
+		$self.animate({left: pos+'px'},500);
+
+		$("#projectssubmenu").find(".active").toggleClass("active");
+		$("#projectssubmenu").find(".item-"+submenu).toggleClass("active");
+
+	}
+
+	var moveleft = function(){
+		var pos = $self.position().left;
+		pos = eval(pos + $self.find('.container').width());
+
+		if (pos > 0) {
+			pos = eval(0-eval(eval($self.find('.container').length - 1) * $self.find('.container').width()));
+			submenu = 4;
+		}else{
+			submenu -= 1;
+		}
+
+		$self.animate({left: pos+'px'},500);
+
+		$("#projectssubmenu").find(".active").toggleClass("active");
+		$("#projectssubmenu").find(".item-"+submenu).toggleClass("active");
+
+	}
+
+
+	var clickmenu = function(handler){
+		if ($(handler).hasClass("active")) return false;
+		else{
+
+			var sel_index	=	eval($(handler).attr('class').substring(5) - 1);
+
+			var pos			=	eval(sel_index * $self.find('.container').width());
+
+			submenu			=	eval(1 + sel_index);
+
+			$self.animate({left: '-'+pos+'px'},500);
+
+			$("#projectssubmenu").find(".active").toggleClass("active");
+
+			$(handler).toggleClass("active");
+
+
+		}
+
+
+	}	
+	
   };
+
+
+
 })( jQuery );
 
 
 
-var submenu = 1;
-
-var moveright = function() {
-	var pos = $('#projects').position().left;
-	pos = eval(pos - $('#projects > .container').width());
-	
-	if (pos < eval(0-eval(eval($('#projects > .container').length - 1) * $('#projects > .container').width()))){
-		pos = 0;
-		submenu = 1;
-	}else{
-		submenu += 1;	
-	}
-	
-	$('#projects').animate({left: pos+'px'},500);
-	
-	$("#projectssubmenu").find(".active").toggleClass("active");
-	$("#projectssubmenu").find(".item-"+submenu).toggleClass("active");;
-
-}
-
-var moveleft = function(){
-	var pos = $('#projects').position().left;
-	pos = eval(pos + $('#projects > .container').width());
-	
-	if (pos > 0) {
-		pos = eval(0-eval(eval($('#projects > .container').length - 1) * $('#projects > .container').width()));
-		submenu = 4;
-	}else{
-		submenu -= 1;
-	}
-	
-	$('#projects').animate({left: pos+'px'},500);
-	
-	$("#projectssubmenu").find(".active").toggleClass("active");
-	$("#projectssubmenu").find(".item-"+submenu).toggleClass("active");;
-
-}
 
 
-var clickmenu = function(handler){
-	if ($(handler).hasClass("active")) return false;
-	else{
-
-		var sel_index	=	eval($(handler).attr('class').substring(5) - 1);
-		
-		var pos			=	eval(sel_index * $('#projects > .container').width());
-		
-		submenu			=	eval(1 + sel_index);
-		
-		$('#projects').animate({left: '-'+pos+'px'},500);
-		
-		$("#projectssubmenu").find(".active").toggleClass("active");
-
-		$(handler).toggleClass("active");
-		
-
-	}
-
-
-}
