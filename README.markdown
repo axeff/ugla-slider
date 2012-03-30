@@ -1,11 +1,11 @@
 UGLA-Slider
 ===========
 
-**Tested on**
-*	Chrome (Mac)
-*	Firefox (Mac)
-*	Safari (Mac)
-
+**Tested on**<br>
+*	Chrome (Mac)<br>
+*	Firefox (Mac)<br>
+*	Safari (Mac)<br>
+<br>
 **DEMO**<br>
 <a href="http://ugla-media.vs188017.vserver.de/projekte/">DEMO 1</a><br>
 <a href="http://povmedia.de">DEMO 2</a>

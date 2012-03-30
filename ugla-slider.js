@@ -3,24 +3,35 @@
 
   $.fn.uglaSlide = function(options) {
   	var $self = $(this);
+	$self.css({
+		'-webkit-transition': 'all 0.5s ease-in-out',
+	    '-moz-transition': 'all 0.5s ease-in-out',
+	    '-o-transition': 'all 0.5s ease-in-out',
+	    '-ms-transition': 'all 0.5s ease-in-out'
+	});
+
     // Do your awesome plugin stuff here
 	//First we do some CSS stuff to float the project containers
 	$self.find('.container').css({'float':'left'});
 	$(this).css({'position':'absolute'});
 
-	//and hide all but the first by shrinking the focus
+	//and hide all but the first by overlapping an absolute positioned "mask" width the size of one .container
 	$(this).css('width',eval($self.find('.container').length * $self.find('.container').width())+'px');
+	
 	$(this).parent().append($("<div id='mask'></div>").css({
 		'background-color': $self.parent().css('background-color'),
-		'width' : $self.find('.container').width() + "px",
-		'height' : $self.find('.container').height() + "px",
 		'top' : $self.offset().top + 'px',
 		'left' : $self.offset().left + 'px',
 		'position' : 'absolute',
 		'z-index' : '100',
 		'overflow' : 'hidden'
-	}).append($(this)))
+	}).append($(this)));
 
+	//somehow the correct width and height is not available while appending the "mask" so we rescale it afterwards...
+	$('#mask').css({
+		'width' : $self.find('.container').width() + "px",
+		'height' : $self.find('.container').height() + "px",
+	});
 							
 	options.left.bind('click',function(){
 		moveleft();
@@ -49,7 +60,12 @@
 			submenu += 1;	
 		}
 
-		$self.animate({left: pos+'px'},500);
+		$self.css({
+			'-webkit-transform':'translateX('+pos+'px)',
+			'-moz-transform':'translateX('+pos+'px)',
+			'-ms-transform':'translateX('+pos+'px)',	
+			'-o-transform':'translateX('+pos+'px)'
+		});
 
 		$("#projectssubmenu").find(".active").toggleClass("active");
 		$("#projectssubmenu").find(".item-"+submenu).toggleClass("active");
@@ -67,7 +83,12 @@
 			submenu -= 1;
 		}
 
-		$self.animate({left: pos+'px'},500);
+		$self.css({
+			'-webkit-transform':'translateX('+pos+'px)',
+			'-moz-transform':'translateX('+pos+'px)',
+			'-ms-transform':'translateX('+pos+'px)',	
+			'-o-transform':'translateX('+pos+'px)'
+		});
 
 		$("#projectssubmenu").find(".active").toggleClass("active");
 		$("#projectssubmenu").find(".item-"+submenu).toggleClass("active");
