@@ -50,13 +50,15 @@ Call uglaSlide() on the wrapper ".slider"
 </code>
 
 It will by default **prepend** a "&lt;&lt;" and "&gt;&gt;" link-set.
-If you want to place your own links, feel free to do so, just tell the plugin where to find them .
+If you want to place your own links, feel free to do so, just tell the plugin where to find them.
+Also the speed for the animations can be optionally adjusted (standard is 0.5s)
 
 <code>
 
 	$(".slider").uglaSlide({
-		left: $("a#slideLeft"),
-		right: $("a#slideRight"),
+       	left: $(".slider.left"),
+		right: $(".slider.right"),
+		speed: "0.5s",
 	});
 
 </code>
