@@ -1,7 +1,7 @@
 UGLA-Slider
 ===========
 
-_[...] it slides back to the beginning, after reach of the end [...]_
+_[...] it slides back to the beginning, after reaching the end [...]_
 
 
 **Tested on**<br>
@@ -16,37 +16,51 @@ _[...] it slides back to the beginning, after reach of the end [...]_
 
 
 Usage:
-You need a wrapper (in this example called "#projects") and put your contents each in a "container" in that wrapper<br>
-
-	`<div>`<br>
-		`<div id="projects">`<br>
-			`<div class="container">`<br>
-			   `Content Page 1`<br>
-			`</div>`<br>
-			`<div class="container">`<br>
-				`Content Page 2`<br>
-			`</div>`<br>
-			`<div class="container">`<br>
-				`Content Page 3`<br>
-			`</div>`<br>
-			`<div class="container">`<br>
-				`Content Page 4`<br>
-			`</div>`<br>
-		`</div>`<br>
-	`</div>`<br>
-	`<div id="slider" style="left:0;"><a class="left" href="#">left</a><a class="right" href="#">right</a></div>`<br>
-
-
-Call uglaSlide() on the wrapper "#projects" and pass the configuration object
+You need a wrapper (in this example called ".slider") and put your contents each in a "container" within that wrapper
 
 <code>
-	$(document).ready(function(){<br>
-		$("#projects").uglaSlide({<br>
-			'left': $("#slider .left"), //the jQuery Object of the left-link to be clicked<br>
-			'right': $("#slider .right"), //the jQuery Object of the right-link to be clicked<br>
-			'menu': $('#projectssubmenu li a') //not implmented yet... for navigation menu<br>
-		});<br>
-	});<br>
+	
+
+	<div class="slider">
+		<div class="container">
+		   Content Page 1
+		</div>
+		<div class="container">
+			Content Page 2
+		</div>
+		<div class="container">
+			Content Page 3
+		</div>
+		<div class="container">
+			Content Page 4
+		</div>
+	</div>
+
+
+</code>
+
+Call uglaSlide() on the wrapper ".slider" 
+
+<code>
+	
+	$(document).ready(function(){
+		$(".slider").uglaSlide();
+	});
+	
+</code>
+
+It will by default **prepend** a "&lt;&lt;" and "&gt;&gt;" link-set.
+If you want to place your own links, feel free to do so, just tell the plugin where to find them.
+Also the speed for the animations can be optionally adjusted (standard is 0.5s)
+
+<code>
+
+	$(".slider").uglaSlide({
+       	left: $(".slider.left"),
+		right: $(".slider.right"),
+		speed: "0.5s",
+	});
+
 </code>
 
 Contents:<br>
