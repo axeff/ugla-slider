@@ -11,7 +11,7 @@ _[...] it slides back to the beginning, after reaching the end [...]_
 <br>
 **DEMO**<br>
 
-<a href="http://bit.ly/ugla-slider-m">DEMO 1 (mobile touch develop branch)</a>
+<a href="http://bit.ly/ugla-slider-m">DEMO 1 (mobile touch develop branch)</a><br>
 <a href="http://ugla-media.vs188017.vserver.de/projekte/">DEMO 2</a><br>
 <a href="http://povmedia.de">DEMO 3</a>
 
