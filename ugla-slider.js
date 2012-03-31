@@ -1,9 +1,11 @@
 (function( $ ) {
-  var countContainer = 1;
 
   $.fn.uglaSlide = function(opts) {
+	var countContainer = 1;
+	var rememberCountContainer = 1;
+	var rememberPosition = 0;
+	
 	var $self = $(this);
-
 
 
 	if ((typeof opts == "undefined" || typeof opts.right == "undefined") && !$(".slider.right").length)
@@ -66,16 +68,15 @@
 	
 
 	var touchable = function() {
-		var startX,pos = null;
-		var halfWidth = $self.find('.container').outerWidth()/2;
+		var startX,posX = null;
+		var width = $self.find('.container').outerWidth();
+		var halfWidth = width/2;
 		$self[0].ontouchstart = function(e){
 
 			//stops normal scrolling with touch
 			e.preventDefault();
 
 			startX = e.touches[0].clientX;
-
-			console.log("started at "+startX);
 
 		};
 
@@ -87,17 +88,18 @@
 
 			if (e.touches[0].clientX > startX) {//left
 				
-				pos = startX + e.touches[0].clientX;
+				posX = startX + e.touches[0].clientX - ((rememberCountContainer - 1) * width);
+
 				$self.each(function(){
 					$(this).css({
 						'-webkit-transition': 'all 0s ease-in-out',
 						'-moz-transition': 'all 0s ease-in-out',
 						'-o-transition': 'all 0s ease-in-out',
 						'-ms-transition': 'all 0s ease-in-out',
-						'-webkit-transform':'translateX('+pos+'px)',
-						'-moz-transform':'translateX('+pos+'px)',
-						'-ms-transform':'translateX('+pos+'px)',	
-						'-o-transform':'translateX('+pos+'px)'
+						'-webkit-transform':'translateX('+posX+'px)',
+						'-moz-transform':'translateX('+posX+'px)',
+						'-ms-transform':'translateX('+posX+'px)',	
+						'-o-transform':'translateX('+posX+'px)'
 					});
 				});
 				
@@ -105,21 +107,19 @@
 				
 			}
 			if (e.touches[0].clientX < startX) {//right
-				// pos = eval(pos - $(this).find('.container').outerWidth());
-				// if (pos < eval(0-eval(eval($(this).find('.container').length - 1) * $(this).find('.container').outerWidth()))){
-				// 	pos = 0;
-				pos = startX - e.touches[0].clientX;
-				console.log(startX+"  "+e.touches[0].clientX+"  "+pos);
+
+				posX = (-1)*(startX - e.touches[0].clientX + ((rememberCountContainer - 1) * width));
+
 				$self.each(function(){
 					$(this).css({
 						'-webkit-transition': 'all 0s ease-in-out',
 						'-moz-transition': 'all 0s ease-in-out',
 						'-o-transition': 'all 0s ease-in-out',
 						'-ms-transition': 'all 0s ease-in-out',
-						'-webkit-transform':'translateX('+(-1)*pos+'px)',
-						'-moz-transform':'translateX('+(-1)*pos+'px)',
-						'-ms-transform':'translateX('+(-1)*pos+'px)',	
-						'-o-transform':'translateX('+(-1)*pos+'px)'
+						'-webkit-transform':'translateX('+posX+'px)',
+						'-moz-transform':'translateX('+posX+'px)',
+						'-ms-transform':'translateX('+posX+'px)',	
+						'-o-transform':'translateX('+posX+'px)'
 					});
 				});
 			}
@@ -129,15 +129,13 @@
 		$self[0].ontouchend = function(e){
 			//stops normal scrolling with touch
 			e.preventDefault();
-			if ((startX + pos) > halfWidth){
-				console.log("reached minDistance - left");
-				//move("right");
+			if ((startX - posX) > halfWidth){
+				move("right", false);
 			}
-			else if ((startX - pos) < halfWidth){
-				console.log("reached minDistance - right");
-				//move("right");
+			else if ((startX - posX) < halfWidth){
+				move("left", false);
 			}else {
-				console.log("slide back");
+				move(null, false);
 			}
 		};
 	};
@@ -145,12 +143,19 @@
 	if (config.touchable)
 		touchable();
 
-	var move = function(direction) {
+	var move = function(direction, getOffsetPosition) {
+
+		if (typeof getOffsetPosition == "undefined") getOffsetPosition = true;
 
 		$self.each(function(){
-			var pos = $(this).position().left;
+			var pos = rememberPosition;
 		
 			if (direction == 'right'){
+				if (getOffsetPosition)
+					pos = $(this).position().left;
+				else
+					pos = rememberPosition;
+					
 				pos = eval(pos - $(this).find('.container').outerWidth());
 				if (pos < eval(0-eval(eval($(this).find('.container').length - 1) * $(this).find('.container').outerWidth()))){
 					pos = 0;
@@ -160,6 +165,13 @@
 				}
 			}
 			else if (direction == 'left'){
+				if (getOffsetPosition)
+					pos = $(this).position().left;
+				else
+					pos = rememberPosition + 1;
+					
+				console.log("BEFORE pos: "+pos);
+				pos = $(this).position().left;
 				pos = eval(pos + $(this).find('.container').outerWidth());
 				if (pos > 0) {
 					pos = eval(0-eval(eval($(this).find('.container').length - 1) *$(this).find('.container').outerWidth()));
@@ -167,7 +179,14 @@
 				}else{
 					countContainer -= 1;
 				}
+				console.log("AFTER pos: "+pos);
+			}else{
+				pos = rememberPosition;
+				countContainer = rememberCountContainer;
 			}
+
+			rememberPosition = pos;
+			rememberCountContainer = countContainer;
 
 			resizeMask(countContainer);
 
