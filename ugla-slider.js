@@ -4,6 +4,8 @@
   $.fn.uglaSlide = function(opts) {
 	var $self = $(this);
 
+
+
 	if ((typeof opts == "undefined" || typeof opts.right == "undefined") && !$(".slider.right").length)
 		$($self[0]).parent().prepend($("<a class='slider right' href='#'>&gt;&gt;</a>"));
 
@@ -16,15 +18,10 @@
 	       	left: $(".slider.left"),
 	 		right: $(".slider.right"),
 			speed: "0.5s",
+			touchable: true,
 		menu: null
 	   }, opts);
 
-	$self.css({
-		'-webkit-transition': 'all '+config.speed+' ease-in-out',
-		'-moz-transition': 'all '+config.speed+' ease-in-out',
-		'-o-transition': 'all '+config.speed+' ease-in-out',
-		'-ms-transition': 'all '+config.speed+' ease-in-out'
-	});
 
 	   // Do your awesome plugin stuff here
 	//First we do some CSS stuff to float the project containers
@@ -66,6 +63,87 @@
 		move('right');
 		return false;
 	});
+	
+
+	var touchable = function() {
+		var startX,pos = null;
+		var halfWidth = $self.find('.container').outerWidth()/2;
+		$self[0].ontouchstart = function(e){
+
+			//stops normal scrolling with touch
+			e.preventDefault();
+
+			startX = e.touches[0].clientX;
+
+			console.log("started at "+startX);
+
+		};
+
+		$self[0].ontouchmove = function(e){
+
+			//stops normal scrolling with touch
+			e.preventDefault();
+
+
+			if (e.touches[0].clientX > startX) {//left
+				
+				pos = startX + e.touches[0].clientX;
+				$self.each(function(){
+					$(this).css({
+						'-webkit-transition': 'all 0s ease-in-out',
+						'-moz-transition': 'all 0s ease-in-out',
+						'-o-transition': 'all 0s ease-in-out',
+						'-ms-transition': 'all 0s ease-in-out',
+						'-webkit-transform':'translateX('+pos+'px)',
+						'-moz-transform':'translateX('+pos+'px)',
+						'-ms-transform':'translateX('+pos+'px)',	
+						'-o-transform':'translateX('+pos+'px)'
+					});
+				});
+				
+					
+				
+			}
+			if (e.touches[0].clientX < startX) {//right
+				// pos = eval(pos - $(this).find('.container').outerWidth());
+				// if (pos < eval(0-eval(eval($(this).find('.container').length - 1) * $(this).find('.container').outerWidth()))){
+				// 	pos = 0;
+				pos = startX - e.touches[0].clientX;
+				console.log(startX+"  "+e.touches[0].clientX+"  "+pos);
+				$self.each(function(){
+					$(this).css({
+						'-webkit-transition': 'all 0s ease-in-out',
+						'-moz-transition': 'all 0s ease-in-out',
+						'-o-transition': 'all 0s ease-in-out',
+						'-ms-transition': 'all 0s ease-in-out',
+						'-webkit-transform':'translateX('+(-1)*pos+'px)',
+						'-moz-transform':'translateX('+(-1)*pos+'px)',
+						'-ms-transform':'translateX('+(-1)*pos+'px)',	
+						'-o-transform':'translateX('+(-1)*pos+'px)'
+					});
+				});
+			}
+
+		};
+		
+		$self[0].ontouchend = function(e){
+			//stops normal scrolling with touch
+			e.preventDefault();
+			if ((startX + pos) > halfWidth){
+				console.log("reached minDistance - left");
+				//move("right");
+			}
+			else if ((startX - pos) < halfWidth){
+				console.log("reached minDistance - right");
+				//move("right");
+			}else {
+				console.log("slide back");
+			}
+		};
+	};
+
+	if (config.touchable)
+		touchable();
 
 	var move = function(direction) {
 
@@ -94,6 +172,10 @@
 			resizeMask(countContainer);
 
 			$(this).css({
+				'-webkit-transition': 'all '+config.speed+' ease-in-out',
+				'-moz-transition': 'all '+config.speed+' ease-in-out',
+				'-o-transition': 'all '+config.speed+' ease-in-out',
+				'-ms-transition': 'all '+config.speed+' ease-in-out',
 				'-webkit-transform':'translateX('+pos+'px)',
 				'-moz-transform':'translateX('+pos+'px)',
 				'-ms-transform':'translateX('+pos+'px)',	
