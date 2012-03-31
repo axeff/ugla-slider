@@ -11,7 +11,7 @@ _[...] it slides back to the beginning, after reaching the end [...]_
 <br>
 **DEMO**<br>
 
-<a href="http://c9.io/axeff/ugla-slider/workspace/basic-example.html">DEMO 1 (on Cloud9, requires login)</a>
+<a href="http://bit.ly/ugla-slider-m">DEMO 1 (mobile touch develop branch)</a>
 <a href="http://ugla-media.vs188017.vserver.de/projekte/">DEMO 2</a><br>
 <a href="http://povmedia.de">DEMO 3</a>
 
