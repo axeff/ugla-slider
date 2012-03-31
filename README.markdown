@@ -10,8 +10,7 @@ _[...] it slides back to the beginning, after reaching the end [...]_
 *	Safari (Mac)<br>
 <br>
 **DEMO**<br>
-<a href="http://ugla-media.vs188017.vserver.de/projekte/">DEMO 1</a><br>
-<a href="http://povmedia.de">DEMO 2</a>
+<a href="http://c9.io/axeff/ugla-slider/workspace/basic-example.html">DEMO</a>
 
 
 
