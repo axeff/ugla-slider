@@ -140,8 +140,14 @@
 		};
 	};
 
-	if (config.touchable)
+	//check if touch is supported by device
+	var isTouchDevice = function() {
+	    return "ontouchstart" in window;
+	}
+
+	if (config.touchable && isTouchDevice()){
 		touchable();
+	}
 
 	var move = function(direction, getOffsetPosition) {
 
