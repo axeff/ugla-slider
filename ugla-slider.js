@@ -68,9 +68,9 @@
 	
 
 	var touchable = function() {
-		var startX,posX = null;
+		var startX,posX,absoluteX = null;
 		var width = $self.find('.container').outerWidth();
-		var halfWidth = width/2;
+		var halfWidth = width/3;
 		$self[0].ontouchstart = function(e){
 
 			//stops normal scrolling with touch
@@ -85,11 +85,12 @@
 			//stops normal scrolling with touch
 			e.preventDefault();
 
+			absoluteX = e.touches[0].clientX;
 
-			if (e.touches[0].clientX > startX) {//left
+			if (absoluteX > startX) {//left
 				
-				posX = startX + e.touches[0].clientX - ((rememberCountContainer - 1) * width);
-
+				posX = startX + e.touches[0].clientX - ((rememberCountContainer-1) * width);
+				console.log("left swipe");
 				$self.each(function(){
 					$(this).css({
 						'-webkit-transition': 'all 0s ease-in-out',
@@ -103,12 +104,10 @@
 					});
 				});
 				
-					
-				
 			}
-			if (e.touches[0].clientX < startX) {//right
-
-				posX = (-1)*(startX - e.touches[0].clientX + ((rememberCountContainer - 1) * width));
+			if (absoluteX < startX) {//right
+				console.log("right swipe");
+				posX = (-1)*(startX - e.touches[0].clientX + ((rememberCountContainer-1) * width));
 
 				$self.each(function(){
 					$(this).css({
@@ -127,12 +126,13 @@
 		};
 		
 		$self[0].ontouchend = function(e){
+			
 			//stops normal scrolling with touch
 			e.preventDefault();
-			if ((startX - posX) > halfWidth){
+			if ((startX - absoluteX) > halfWidth){
 				move("right", false);
 			}
-			else if ((startX - posX) < halfWidth){
+			else if ((absoluteX - startX) > halfWidth){
 				move("left", false);
 			}else {
 				move(null, false);
@@ -157,6 +157,7 @@
 			var pos = rememberPosition;
 		
 			if (direction == 'right'){
+
 				if (getOffsetPosition)
 					pos = $(this).position().left;
 				else
@@ -171,13 +172,12 @@
 				}
 			}
 			else if (direction == 'left'){
+
 				if (getOffsetPosition)
 					pos = $(this).position().left;
 				else
 					pos = rememberPosition + 1;
 					
-				console.log("BEFORE pos: "+pos);
-				pos = $(this).position().left;
 				pos = eval(pos + $(this).find('.container').outerWidth());
 				if (pos > 0) {
 					pos = eval(0-eval(eval($(this).find('.container').length - 1) *$(this).find('.container').outerWidth()));
@@ -185,7 +185,7 @@
 				}else{
 					countContainer -= 1;
 				}
-				console.log("AFTER pos: "+pos);
+
 			}else{
 				pos = rememberPosition;
 				countContainer = rememberCountContainer;
