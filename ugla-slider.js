@@ -151,6 +151,12 @@
 
 	var move = function(direction, getOffsetPosition) {
 
+        //trigger event
+        $.event.trigger({
+            type: "uglaSlide",
+            direction: direction
+        });
+
 		if (typeof getOffsetPosition == "undefined") getOffsetPosition = true;
 
 		$self.each(function(){
